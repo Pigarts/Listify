@@ -12,6 +12,7 @@ export default createGlobalStyle`
 
 body {
   background-color: ${({theme}) => theme.COLORS.B1};
+  overflow-x: hidden;
 }
 
 a {
@@ -44,10 +45,12 @@ filter: brightness(0.9);
 ::-webkit-scrollbar-thumb {
   background: transparent;
   border-radius: 8px;
+  background: ${({theme}) => theme.COLORS.C1};
+
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: ${({theme}) => theme.COLORS.Dark_1000};
+  background: ${({theme}) => theme.COLORS.C1};
   border-radius: 8px;
 }
 

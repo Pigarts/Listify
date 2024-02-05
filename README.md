@@ -1,8 +1,18 @@
-# React + Vite
+# Listify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### documentação incompleta!!!
 
-Currently, two official plugins are available:
+ #### uma documentação mais detalhada sera adicionada em breve.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### últimos updates:
+
+#### commit "groupFeatures"
+
+- Implementação de grupos de itens:
+    - Agora os items podem ser associados a um grupo que organiza e minimiza os itens pertencentes ao grupo.
+    - Os grupos são independentes para gada tipo de lista
+    - Deixar o campo "grupo" na pagina de criação de itens vazio não atribuira grupo algum ao item.
+    - Dar um nome ao grupo na pagina de criação de itens gria um grupo e atibui o item a ele.
+    - Atribuir um nome de um grupo ja existente na pagina de criação de itens adicionará o item a o grupo.
+
+

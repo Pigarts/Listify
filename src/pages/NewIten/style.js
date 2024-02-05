@@ -11,6 +11,9 @@ export const Content = styled.div`
 padding: 15px 24px ;
 flex: 1;
 
+button.backButton{
+    margin-top: 15px;
+}
 `
 
 export const Form = styled.form`

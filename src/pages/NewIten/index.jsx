@@ -8,6 +8,9 @@ import { Button } from "../../components/button";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../../components/Pagination";
 import { Select } from "../../components/select";
+import { IconButton } from "../../components/iconButton";
+import { Icon_Left_Arrow } from "../../components/Icons";
+import { TextButton } from "../../components/textButton";
 
 export function NewIten() {
     
@@ -15,6 +18,8 @@ export function NewIten() {
     const [endValue, setEndValue] = useState(1);
 
     const [itenTilte, setItenTilte] = useState("");
+    const [itengroup, setItengroup] = useState("");
+
     
     const params = useParams()
     
@@ -25,25 +30,20 @@ export function NewIten() {
         setStartValue(newStartValue)
     };
 
-    const handleEndCounterValue = (newEndValue) => {
-        setEndValue(newEndValue)
-    };
-
+    function goBack() {
+        navigate(-1)
+    }
 
     let iten = {
         name: itenTilte,
         type: params.type
-        
     }
     
     function handleSave(e) {
         e.preventDefault();
         if(params.type === "countList") {
-            const iten = {
-                name: itenTilte,
-                type: params.type,
-                quantity: Number(startValue)
-            }
+            iten.quantity = Number(startValue),
+            iten.group = itengroup || "default"
             addToBasket(iten)
             navigate("/")
         }
@@ -51,14 +51,14 @@ export function NewIten() {
         if(iten.type === "goalList") {
             iten.quantity = Number(startValue)
             iten.goalValue = Number(endValue)
+            iten.group = itengroup || "default"
             addToBasket(iten)
             navigate(-1)
         }
 
         if(iten.type === "toDo") {
             iten.complited = false
-            
-            console.log("new", iten)
+            iten.group = itengroup || "default"
             addToBasket(iten)
             navigate(-1)
         }
@@ -72,6 +72,12 @@ export function NewIten() {
                 name="title"
                 placeholder="Nome do iten."
                 onChange={e => setItenTilte(e.target.value)}
+                />
+            <Input 
+                title="grupo"
+                name="group"
+                placeholder="Deixe vazio para não atribuir grupo."
+                onChange={e => setItengroup(e.target.value)}
                 />
             <div className="counterWropper">
                 <Counter
@@ -91,6 +97,12 @@ export function NewIten() {
                 name="title"
                 placeholder="Nome do iten."
                 onChange={e => setItenTilte(e.target.value)}
+                />
+            <Input 
+                title="grupo"
+                name="group"
+                placeholder="Deixe vazio para não atribuir grupo."
+                onChange={e => setItengroup(e.target.value)}
                 />
                 <Counter
                     title={"Qauntidade inicial"}
@@ -112,7 +124,13 @@ export function NewIten() {
         name="title"
         placeholder="De um nome paraa sua tarefa."
         onChange={e => setItenTilte(e.target.value)}
-        />     
+        />
+        <Input 
+                title="grupo"
+                name="group"
+                placeholder="Deixe vazio para não atribuir grupo."
+                onChange={e => setItengroup(e.target.value)}
+                />    
         </>
     }
 
@@ -127,6 +145,11 @@ export function NewIten() {
                         <Button onClick={handleSave} title={"Salvar"} backgroundColor={"#ddff45"}/>
 
                     </Form>
+
+                    <TextButton className="backButton" icon={Icon_Left_Arrow} onClick={goBack}  title="Voltar"/>
+                       
+                    
+
                 </>
             </Content>
         </Container>

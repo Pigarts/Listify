@@ -6,15 +6,19 @@ import { useBasket } from "../../hooks/basketManager"
 import { Link } from "react-router-dom"
 import { Pagination } from "../../components/Pagination"
 import { useNavigate } from "react-router-dom";
+import { Acordeon } from "../../components/acordeon"
 
 export function Home() {
     const { screenCountBasket} = useBasket()
-    const [basket, ssetBasket ] = useState([])
-    const navigate = useNavigate();
+    const [itengroups, setItengroups ] = useState([])
 
+    const navigate = useNavigate();
     
     useEffect(() => {
-        ssetBasket( screenCountBasket)
+
+        const groups = Array.from(new Set(screenCountBasket.map(iten => iten.group)));
+        setItengroups(groups)
+        console.log(screenCountBasket)
     }, [ screenCountBasket]);
     return (
         <Container>
@@ -22,18 +26,33 @@ export function Home() {
             <Content>
                 <Pagination/>
                 <ItenWroper>
-                {basket &&
-                basket
-                    .filter(item => item.type === "countList") // Filtrar itens com base na propriedade "type"
+                    {screenCountBasket &&
+                    screenCountBasket
+                    .filter(item => item.type === "countList" && item.group === "default")
                     .map((item, itemIndex) => (
-                    <Iten key={itemIndex} title={item.name} initialValue={item.quantity}/>
-                    ))
+                        <Iten key={itemIndex} title={item.name} initialValue={item.quantity}/>
+                        ))
+                    }
+
+                    {
+                        itengroups &&
+                        itengroups.filter(group => group !== "default")
+                        .map((group, groupIndex) => (
+                            <Acordeon key={groupIndex} title={group}>
+                    
+                        {screenCountBasket &&
+                            screenCountBasket
+                            .filter(item => item.type === "countList" && item.group === group)
+                            .map((item, itemIndex) => (
+                                <Iten key={itemIndex} title={item.name} initialValue={item.quantity}/>
+                            ))
+                    }
+                </Acordeon>
+                ))
+
                 }
-
-
-                <Iten $isNew onClick={() => navigate("/neewiten/countList")}/>
-
                 </ItenWroper>
+                <Iten $isNew onClick={() => navigate("/neewiten/countList")}/>
             </Content>
         </Container>
     )
